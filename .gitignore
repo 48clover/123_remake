@@ -1,0 +1,7 @@
+# IDE setting
+.idea
+
+# Build
+*.jar
+*.class
+/build/
