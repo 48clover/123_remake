@@ -5,6 +5,7 @@ import cn.nukkit.plugin.PluginBase
 
 class Main: PluginBase(), Listener {
     override fun onEnable() {
-        this.server.pluginManager.registerEvents(this, this)
+        this.server.pluginManager.registerEvents(EventListener(), this)
+        saveDefaultConfig()
     }
 }
