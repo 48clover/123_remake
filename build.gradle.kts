@@ -4,7 +4,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
-group = "com.yotu"
+group = "site.saba123"
 version = "1.0-SNAPSHOT"
 
 // 依存関係の追加
