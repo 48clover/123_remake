@@ -11,8 +11,8 @@ class StateRepository {
     companion object {
         fun add(_xuid: String, _name: String) = transaction {
             Status.insert {
-                it[name] = _name
                 it[xuid] = _xuid
+                it[name] = _name
             }
         }
 
