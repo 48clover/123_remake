@@ -3,7 +3,6 @@ package site.saba123.command.commands
 import cn.nukkit.Player
 import cn.nukkit.command.Command
 import cn.nukkit.command.CommandSender
-import site.saba123.model.Rank
 import site.saba123.repository.StateRepository
 
 class StatusCommand: Command("status") {

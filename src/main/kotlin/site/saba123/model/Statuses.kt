@@ -2,6 +2,7 @@ package site.saba123.model
 
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.Table
+import kotlin.arrayOf as arrayOf
 
 object Statuses: Table() {
     val xuid = varchar("xuid", 20)
@@ -30,5 +31,23 @@ class StatusDTO {
             result[Statuses.rankId],
             result[Statuses.playTime]
         )
+    }
+}
+
+class Rank(val rankId: Int) {
+    init {
+        require(rankId in 0..5)
+    }
+
+    companion object {
+        val textList = arrayOf("観光",
+            "住民",
+            "信任",
+            "管理",
+            "パイ",
+            "主")
+    }
+    fun toText(): String {
+        return textList[rankId]
     }
 }
