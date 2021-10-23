@@ -9,7 +9,7 @@ object Statuses: Table() {
     val name = varchar("name", 20)
     val money = integer("money").default(0)
     val rank = integer("rank").default(0)
-    val playTime = integer("play_time").default(0)
+    val playMinute = integer("play_time").default(0)
 
     override val primaryKey = PrimaryKey(xuid)
 }
@@ -17,9 +17,9 @@ object Statuses: Table() {
 data class Status(
     val xuid: String,
     val name: String,
-    val money: Int,
-    val rank: Int,
-    val playTime: Int
+    val money: Money,
+    val rank: Rank,
+    val playMinute: PlayMinute
 )
 
 class StatusDTO {
@@ -27,9 +27,9 @@ class StatusDTO {
         fun decode(result: ResultRow) = Status(
             result[Statuses.xuid],
             result[Statuses.name],
-            result[Statuses.money],
-            result[Statuses.rank],
-            result[Statuses.playTime]
+            Money(result[Statuses.money]),
+            Rank(result[Statuses.rank]),
+            PlayMinute(result[Statuses.playMinute])
         )
     }
 }
@@ -66,5 +66,17 @@ class Money(var money: Int) {
         if(amount > money || amount < 0) return false
         money -= amount
         return true
+    }
+}
+
+class PlayMinute(var playMinute: Int) {
+    init {
+        require(0 <= playMinute)
+    }
+
+    fun toDate(): Map<String, Int> {
+        val hour = playMinute / 60
+        val minute = playMinute % 60
+        return mapOf("hour" to hour, "minute" to minute)
     }
 }
