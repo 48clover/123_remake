@@ -4,6 +4,7 @@ import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 import site.saba123.model.Job
+import site.saba123.model.JobDTO
 import site.saba123.model.Jobs
 
 class JobRepository {
@@ -15,7 +16,7 @@ class JobRepository {
         }
 
         fun find(_xuid: String): Job? = Jobs.select{Jobs.xuid eq _xuid}.firstOrNull()?.let {
-
+            JobDTO.decode(it)
         }
     }
 }
