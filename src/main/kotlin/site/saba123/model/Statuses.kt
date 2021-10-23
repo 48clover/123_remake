@@ -51,8 +51,20 @@ class Rank(val rankId: Int) {
     }
 }
 
-class Money(val money: Int) {
+class Money(var money: Int) {
     init {
         require(0 <= money)
+    }
+
+    fun add(amount: Int): Boolean {
+        if(amount < 0) return false
+        money += amount
+        return true
+    }
+
+    fun sub(amount: Int): Boolean {
+        if(amount > money || amount < 0) return false
+        money -= amount
+        return true
     }
 }
