@@ -34,9 +34,9 @@ class StatusDTO {
     }
 }
 
-class Rank(val rankId: Int) {
+class Rank(val rank: Int) {
     init {
-        require(rankId in 0..5)
+        require(rank in 0..5)
     }
     companion object {
         val textList = arrayOf("観光",
@@ -47,7 +47,7 @@ class Rank(val rankId: Int) {
             "主")
     }
     fun toText(): String {
-        return textList[rankId]
+        return textList[rank]
     }
 }
 
