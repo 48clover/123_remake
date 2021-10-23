@@ -16,7 +16,7 @@ class StateRepository {
             }
         }
 
-        fun find(_xuid: String): Status? = Statuses.select{ Statuses.xuid.eq(_xuid) }.firstOrNull()?.let {
+        fun find(_xuid: String): Status? = Statuses.select{Statuses.xuid eq _xuid}.firstOrNull()?.let {
             StatusDTO.decode(it)
         }
     }
