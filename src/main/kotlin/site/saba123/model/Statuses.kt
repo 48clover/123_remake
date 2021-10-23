@@ -38,7 +38,6 @@ class Rank(val rankId: Int) {
     init {
         require(rankId in 0..5)
     }
-
     companion object {
         val textList = arrayOf("観光",
             "住民",
@@ -49,5 +48,11 @@ class Rank(val rankId: Int) {
     }
     fun toText(): String {
         return textList[rankId]
+    }
+}
+
+class Money(val money: Int) {
+    init {
+        require(0 <= money)
     }
 }
