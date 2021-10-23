@@ -35,3 +35,9 @@ class JobDTO {
         )
     }
 }
+
+class Exp(val exp: Long) {
+    init {
+        require(0 <= exp)
+    }
+}
