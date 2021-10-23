@@ -16,28 +16,49 @@ object Jobs: Table("jobs") {
 
 data class Job(
     val xuid: String,
-    val beginnerExp: Long,
-    val fighterExp: Long,
-    val therapistExp: Long,
-    val builderExp: Long,
-    val organizerExp: Long
+    val beginnerExp: Exp,
+    val fighterExp: Exp,
+    val therapistExp: Exp,
+    val builderExp: Exp,
+    val organizerExp: Exp
 )
 
 class JobDTO {
     companion object {
         fun decode(result: ResultRow) = Job(
             result[Jobs.xuid],
-            result[Jobs.beginnerExp],
-            result[Jobs.fighterExp],
-            result[Jobs.therapistExp],
-            result[Jobs.builderExp],
-            result[Jobs.organizerExp]
+            Exp(result[Jobs.beginnerExp]),
+            Exp(result[Jobs.fighterExp]),
+            Exp(result[Jobs.therapistExp]),
+            Exp(result[Jobs.builderExp]),
+            Exp(result[Jobs.organizerExp])
         )
     }
 }
 
-class Exp(val exp: Long) {
+class Exp(var exp: Long) {
     init {
         require(0 <= exp)
+    }
+
+    fun add(amount: Int): Boolean {
+        if(amount < 0) return false
+        exp += amount
+        return true
+    }
+
+    fun sub(amount: Int): Boolean {
+        if (amount > exp || amount < 0) return false
+        exp -= amount
+        return true
+    }
+
+    fun getLevel(): Int {
+        val threshold = 50
+        for(i in 1..100) {
+            if(exp >= (i - 1) * threshold) continue
+            return i
+        }
+        return 100
     }
 }
