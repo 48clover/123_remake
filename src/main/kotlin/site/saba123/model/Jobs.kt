@@ -41,16 +41,16 @@ class Exp(var exp: Long) {
         require(0 <= exp)
     }
 
-    fun add(amount: Int): Boolean {
-        if(amount < 0) return false
+    fun add(amount: Int) {
+        if(amount < 0) return
         exp += amount
-        return true
+        return
     }
 
-    fun sub(amount: Int): Boolean {
-        if (amount > exp || amount < 0) return false
+    fun sub(amount: Int) {
+        if (amount > exp || amount < 0) return
         exp -= amount
-        return true
+        return
     }
 
     fun getLevel(): Int {
