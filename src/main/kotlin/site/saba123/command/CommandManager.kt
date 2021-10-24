@@ -9,11 +9,10 @@ class CommandManager {
             // 無効化
             val disableCommands: String = plugin.config.getString("Command.Disable")
             if (disableCommands.isNotEmpty()) {
-                val commands = disableCommands.split("\n").dropLastWhile { it.isEmpty() }.toTypedArray()
-                if (commands.isNotEmpty()) {
-                    for (target in commands) {
-                        plugin.server.commandMap.commands.remove(target)
-                    }
+                val commands = disableCommands.split("\n")
+                for (target in commands) {
+                    plugin.server.commandMap.commands.remove(target)
+                    if(commands.isEmpty()) return
                 }
             }
 
