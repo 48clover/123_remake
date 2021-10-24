@@ -56,16 +56,14 @@ class Money(var money: Int) {
         require(0 <= money)
     }
 
-    fun add(amount: Int): Boolean {
-        if(amount < 0) return false
+    fun add(amount: Int) {
+        if(amount < 0) return
         money += amount
-        return true
     }
 
-    fun sub(amount: Int): Boolean {
-        if(amount > money || amount < 0) return false
+    fun sub(amount: Int) {
+        if(amount > money || amount < 0) return
         money -= amount
-        return true
     }
 }
 
