@@ -2,7 +2,6 @@ package site.saba123.model
 
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.Table
-import kotlin.arrayOf as arrayOf
 
 object Statuses: Table() {
     val xuid = varchar("xuid", 20)
@@ -58,30 +57,30 @@ class Rank(var rankId: Int) {
     }
 }
 
-class Money(var money: Int) {
+class Money(var amount: Int) {
     init {
-        require(0 <= money)
+        require(0 <= amount)
     }
 
-    fun add(amount: Int) {
-        if(amount < 0) return
-        money += amount
+    fun add(value: Int) {
+        if (value < 0) return
+        amount += value
     }
 
-    fun sub(amount: Int) {
-        if(amount > money || amount < 0) return
-        money -= amount
+    fun sub(value: Int) {
+        if (value > amount || value < 0) return
+        amount -= value
     }
 }
 
-class PlayMinute(var playMinute: Int) {
+class PlayMinute(var amount: Int) {
     init {
-        require(0 <= playMinute)
+        require(0 <= amount)
     }
 
     fun toDate(): Map<String, Int> {
-        val hour = playMinute / 60
-        val minute = playMinute % 60
+        val hour = amount / 60
+        val minute = amount % 60
         return mapOf("hour" to hour, "minute" to minute)
     }
 }

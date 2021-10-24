@@ -10,7 +10,8 @@ class IdkCommand: Command("idk") {
     }
 
     override fun execute(sender: CommandSender?, commandLabel: String?, args: Array<out String>?): Boolean {
-        if(sender !is Player) return false
-        TODO("プレイ時間の計算と通知")
+        if (sender !is Player) return false
+        // TODO: playTimeの通知
+        return true
     }
 }

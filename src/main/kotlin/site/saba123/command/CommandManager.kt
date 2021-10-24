@@ -6,7 +6,7 @@ import site.saba123.command.commands.StatusCommand
 class CommandManager {
     companion object {
         fun registerAll(plugin: Main) {
-            // 無効化
+            // デフォルトコマンドの無効化
             val disableCommands: String = plugin.config.getString("Command.Disable")
             if (disableCommands.isNotEmpty()) {
                 val commands = disableCommands.split("\n")
@@ -16,7 +16,7 @@ class CommandManager {
                 }
             }
 
-            //登録
+            // 登録
             val map = plugin.server.commandMap
             map.register("status", StatusCommand())
         }
