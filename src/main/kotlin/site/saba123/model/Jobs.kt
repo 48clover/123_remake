@@ -5,6 +5,7 @@ import org.jetbrains.exposed.sql.Table
 
 object Jobs: Table("jobs") {
     val xuid = varchar("xuid", 20)
+    val name = varchar("name", 20)
     val beginnerExp = long("beginner_exp").default(0)
     val fighterExp = long("fighter_exp").default(0)
     val therapistExp = long("therapist_exp").default(0)
@@ -16,6 +17,7 @@ object Jobs: Table("jobs") {
 
 data class Job(
     val xuid: String,
+    val name: String,
     val beginnerExp: Exp,
     val fighterExp: Exp,
     val therapistExp: Exp,
@@ -27,6 +29,7 @@ class JobDTO {
     companion object {
         fun decode(result: ResultRow) = Job(
             result[Jobs.xuid],
+            result[Jobs.name],
             Exp(result[Jobs.beginnerExp]),
             Exp(result[Jobs.fighterExp]),
             Exp(result[Jobs.therapistExp]),
