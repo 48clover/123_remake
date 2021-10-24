@@ -6,22 +6,22 @@ class StatusStore {
     companion object {
         private val statusMap: MutableMap<String, Status> = mutableMapOf()
         fun add(name: String, status: Status) {
-            if(statusMap.contains(name)) return
+            if(isExist(name)) return
             statusMap[name] = status
         }
 
         fun delete(name: String) {
-            if(!statusMap.contains(name)) return
+            if(!isExist(name)) return
             statusMap.remove(name)
         }
 
         fun update(name: String, status: Status) {
-            if(!statusMap.contains(name)) return
+            if(!isExist(name)) return
             statusMap[name] = status
         }
 
         fun getByName(name: String): Status {
-            if(!statusMap.contains(name)) throw Exception("存在しないキーの代入")
+            if(!isExist(name)) throw Exception("存在しないキーの代入")
             return statusMap[name]!!
         }
 
