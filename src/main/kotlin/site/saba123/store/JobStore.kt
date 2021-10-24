@@ -1,20 +1,18 @@
 package site.saba123.store
 
-import site.saba123.model.Exp
 import site.saba123.model.Job
-import java.lang.Exception
 
-class ExpStore {
+class JobStore {
     companion object {
         private val jobMap: MutableMap<String, Job> = mutableMapOf()
 
         fun add(name: String, job: Job) {
-            if(isExist(name)) return
+            if (isExist(name)) return
             jobMap[name] = job
         }
 
         fun delete(name: String) {
-            if(!isExist(name)) return
+            if (!isExist(name)) return
             jobMap.remove(name)
         }
 
