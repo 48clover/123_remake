@@ -15,6 +15,11 @@ class StatusStore {
             statusMap.remove(name)
         }
 
+        fun update(name: String, status: Status) {
+            if(!statusMap.contains(name)) return
+            statusMap[name] = status
+        }
+
         fun getByName(name: String): Status {
             if(!statusMap.contains(name)) throw Exception("存在しないキーの代入")
             return statusMap[name]!!
