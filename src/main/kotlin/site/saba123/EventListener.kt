@@ -10,7 +10,7 @@ class EventListener: Listener {
     fun onJoin(event: PlayerJoinEvent) {
         val player = event.player
         if(player.hasPlayedBefore()) {
-            //TODO: タイトルとかメッセージとか表示
+            // StatusesをDBからとりだす
             return
         }
         // DBにプレイヤーデータを登録
