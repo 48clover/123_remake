@@ -17,15 +17,16 @@ class StatusCommand: Command("status") {
             sender?.server?.logger?.alert("コンソールからは実行できません")
             return true
         }
-        val status = StateRepository.find(sender.loginChainData.xuid)
-        //TODO: プレイ時間のフォーマット実装
         val name = sender.name
-        val playTime = status?.playTime
-        val rank = Rank.format(status!!.rankId)
+        val status = StateRepository.find(sender.loginChainData.xuid) ?: return true
+        val money = status.money.money
+        val rank = status.rank.toText()
+        val playTime = status.playMinute.toDate()
         sender.sendMessage("""
-                        $name：
-                        ランク：$rank
-                        プレイ時間：$playTime 秒
+            $name：
+            ランク：$rank
+            所持金：$money
+            プレイ時間：${playTime["hour"]}時間 ${playTime["minute"]}分
         """.trimIndent())
         return true
     }
