@@ -6,6 +6,7 @@ import org.jetbrains.exposed.sql.Table
 object Jobs: Table("jobs") {
     val xuid = varchar("xuid", 20)
     val name = varchar("name", 20)
+    val currentJob = integer("current_job").default(0)
     val beginnerExp = long("beginner_exp").default(0)
     val fighterExp = long("fighter_exp").default(0)
     val therapistExp = long("therapist_exp").default(0)
@@ -17,7 +18,8 @@ object Jobs: Table("jobs") {
 
 data class Job(
     val xuid: String,
-    val name: String,
+    val name: Name,
+    val currentJob: CurrentJob,
     val beginnerExp: Exp,
     val fighterExp: Exp,
     val therapistExp: Exp,
@@ -29,7 +31,8 @@ class JobDTO {
     companion object {
         fun decode(result: ResultRow) = Job(
             result[Jobs.xuid],
-            result[Jobs.name],
+            Name(result[Jobs.name]),
+            CurrentJob(result[Jobs.currentJob]),
             Exp(result[Jobs.beginnerExp]),
             Exp(result[Jobs.fighterExp]),
             Exp(result[Jobs.therapistExp]),
@@ -39,27 +42,50 @@ class JobDTO {
     }
 }
 
-class Exp(var exp: Long) {
+class CurrentJob(var jobId: Int) {
     init {
-        require(0 <= exp)
+        require(jobId in 0..4)
     }
 
-    fun add(amount: Int) {
-        if(amount < 0) return
-        exp += amount
-        return
+    companion object {
+        val textArray = arrayOf(
+            "初心者",
+            "闘技士",
+            "癒し",
+            "建築士",
+            "開催者"
+        )
     }
 
-    fun sub(amount: Int) {
-        if (amount > exp || amount < 0) return
-        exp -= amount
-        return
+    fun toText(): String {
+        return textArray[jobId]
+    }
+
+    fun update(value: Int) {
+        if (value !in 0..4) return
+        jobId = value
+    }
+}
+
+class Exp(var amount: Long) {
+    init {
+        require(0 <= amount)
+    }
+
+    fun add(value: Int) {
+        if (value < 0) return
+        amount += value
+    }
+
+    fun sub(value: Int) {
+        if (value > amount || value < 0) return
+        amount -= value
     }
 
     fun getLevel(): Int {
         val threshold = 50
-        for(i in 1..100) {
-            if(exp >= (i - 1) * threshold) continue
+        for (i in 1..100) {
+            if (amount >= (i - 1) * threshold) continue
             return i
         }
         return 100
