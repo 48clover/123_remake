@@ -15,7 +15,7 @@ object Statuses: Table() {
 
 data class Status(
     val xuid: String,
-    val name: String,
+    val name: Name,
     val money: Money,
     val rank: Rank,
     val playMinute: PlayMinute
@@ -25,7 +25,7 @@ class StatusDTO {
     companion object {
         fun decode(result: ResultRow) = Status(
             result[Statuses.xuid],
-            result[Statuses.name],
+            Name(result[Statuses.name]),
             Money(result[Statuses.money]),
             Rank(result[Statuses.rank]),
             PlayMinute(result[Statuses.playMinute])
@@ -39,21 +39,23 @@ class Rank(var rankId: Int) {
     }
 
     companion object {
-        val textList = arrayOf("観光",
+        val textArray = arrayOf(
+            "観光",
             "住民",
             "信任",
             "管理",
             "パイ",
-            "主")
+            "主"
+        )
     }
 
     fun toText(): String {
-        return textList[rankId]
+        return textArray[rankId]
     }
 
     fun update(value: Int) {
-        if (value in 0..5) return
-        this.rankId = value
+        if (value !in 0..5) return
+        rankId = value
     }
 }
 

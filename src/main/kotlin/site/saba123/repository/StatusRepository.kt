@@ -21,8 +21,9 @@ class StatusRepository {
             StatusDTO.decode(it)
         }
 
-        fun update(_name: String, status: Status) = transaction {
+        fun update(status: Status) = transaction {
             Statuses.update({ Statuses.xuid eq status.xuid }) {
+                it[name] = status.name.text
                 it[money] = status.money.amount
                 it[rank] = status.rank.rankId
                 it[playMinute] = status.playMinute.amount
