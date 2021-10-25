@@ -19,6 +19,7 @@ class CommandManager {
             // 登録
             val map = plugin.server.commandMap
             map.register("status", StatusCommand())
+            // map.register("warp", WarpCommand(plugin))
         }
     }
 }
