@@ -1,9 +1,11 @@
 package site.saba123.command.commands
 
 import cn.nukkit.Player
+import cn.nukkit.Server
 import cn.nukkit.command.Command
 import cn.nukkit.command.CommandSender
 import cn.nukkit.lang.TranslationContainer
+import cn.nukkit.level.Location
 import cn.nukkit.utils.Config
 
 
@@ -23,13 +25,18 @@ class WarpCommand(val config: Config): Command("warp") {
             sender.sendMessage(TranslationContainer("commands.generic.usage", usageMessage))
             return false
         }
-        val path = "WarpData.${args[0]}."
-        val data: Map<String, Float> = mapOf(
-            "x" to config.get(path + "x")
-            "y" to config.get(path + "y")
-            "z" to config.get(path + "z")
+        val path = "WarpData.${args?.get(0)}."
+        val pos = Location(
+            config.get(path + "x").toString().toDouble(),
+            config.get(path + "y").toString().toDouble(),
+            config.get(path + "z").toString().toDouble(),
+            sender.yaw,
+            sender.pitch,
+            Server.getInstance().getLevelByName(
+                config.get("level").toString()
+            )
         )
-        sender.teleport(data?.)
+        sender.teleport(pos)
         return true
     }
 }
