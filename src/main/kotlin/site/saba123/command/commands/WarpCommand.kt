@@ -26,7 +26,7 @@ class WarpCommand(val config: Config): Command("warp") {
             return false
         }
         val path = "WarpData.${args?.get(0)}."
-        val pos = Location(
+        val position = Location(
             config.get(path + "x").toString().toDouble(),
             config.get(path + "y").toString().toDouble(),
             config.get(path + "z").toString().toDouble(),
@@ -36,7 +36,8 @@ class WarpCommand(val config: Config): Command("warp") {
                 config.get("level").toString()
             )
         )
-        sender.teleport(pos)
+        sender.teleport(position)
+        sender.sendMessage(">${args?.get(0)} にワープしました")
         return true
     }
 }

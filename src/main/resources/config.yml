@@ -1,3 +1,9 @@
 Command:
   Disable: |
     status
+WarpList:
+  test:
+    x: 20
+    y: 20
+    z: 20
+    level: "world"
