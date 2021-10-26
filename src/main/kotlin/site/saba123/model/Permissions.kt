@@ -15,8 +15,8 @@ object Permissions : Table() {
 data class Permission(
     val xuid: String,
     val name: Name,
-    val enabledCommand: List<String>,
-    val disabledCommand: List<String>
+    val enabledCommand: MutableList<String>,
+    val disabledCommand: MutableList<String>
 )
 
 class PermissionDTO {
@@ -24,8 +24,8 @@ class PermissionDTO {
         fun decode(result: ResultRow) = Permission(
             result[Permissions.xuid],
             Name(result[Permissions.name]),
-            result[Permissions.enabledCommand].split(","),
-            result[Permissions.disabledCommand].split(",")
+            result[Permissions.enabledCommand].split(",").toMutableList(),
+            result[Permissions.disabledCommand].split(",").toMutableList()
         )
     }
 }
