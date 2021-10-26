@@ -3,6 +3,7 @@ package site.saba123
 import cn.nukkit.event.EventHandler
 import cn.nukkit.event.Listener
 import cn.nukkit.event.block.BlockBreakEvent
+import cn.nukkit.event.player.PlayerCommandPreprocessEvent
 import cn.nukkit.event.player.PlayerJoinEvent
 import cn.nukkit.event.player.PlayerQuitEvent
 import site.saba123.model.Job
@@ -85,6 +86,18 @@ class EventListener: Listener {
             4 -> {
                 job.organizerExp.add(1)
             }
+        }
+    }
+
+    @EventHandler
+    fun onPlayerCommandPreprocess(event: PlayerCommandPreprocessEvent) {
+        val player = event.player
+        val name = player.name
+        val status = StatusStore.getByName(name)
+        val command = event.message.split(" ")[0]
+        if (!status.rank.hasPermission(command)) {
+            player.sendMessage("コマンドの実行権限がありません")
+            event.setCancelled()
         }
     }
 }
