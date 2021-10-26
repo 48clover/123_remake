@@ -1,6 +1,7 @@
 package site.saba123.command
 
 import site.saba123.Main
+import site.saba123.command.commands.RankCommand
 import site.saba123.command.commands.StatusCommand
 
 class CommandManager {
@@ -19,6 +20,7 @@ class CommandManager {
             // 登録
             val map = plugin.server.commandMap
             map.register("status", StatusCommand())
+            map.register("rank", RankCommand())
             // map.register("warp", WarpCommand(plugin))
         }
     }

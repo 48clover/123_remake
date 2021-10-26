@@ -41,12 +41,12 @@ class Rank(var rankId: Int) {
 
     companion object {
         val textArray = arrayOf(
-            "観光",
+            "§7観光",
             "住民",
-            "信任",
-            "管理",
-            "パイ",
-            "主"
+            "§b信任",
+            "§a管理",
+            "§dパイ",
+            "§6主"
         )
     }
 
