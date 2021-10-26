@@ -7,6 +7,10 @@ Command:
     walist: 0
     addwarp: 3
     delwarp: 3
+    otu: 2
+    kick: 2
+    ban: 2
+    black: 3
 
   # 無効にするデフォルトコマンド
   Disable: |
