@@ -12,7 +12,7 @@ class CommandManager {
                 val commands = disableCommands.split("\n")
                 for (target in commands) {
                     plugin.server.commandMap.commands.remove(target)
-                    if(commands.isEmpty()) return
+                    if (commands.isEmpty()) return
                 }
             }
 
@@ -20,6 +20,12 @@ class CommandManager {
             val map = plugin.server.commandMap
             map.register("status", StatusCommand())
             // map.register("warp", WarpCommand(plugin))
+        }
+
+        fun hasPermission(command: String, rankId: Int): Boolean {
+            val config = Main().config
+            val permission = config.get("Command.Alias.$command").toString().toInt()
+            return rankId >= permission
         }
     }
 }
