@@ -1,9 +1,21 @@
 Command:
+  # 各コマンドの使用権限
+  Permission:
+    imadonkurai: 0
+    status: 0
+    warp: 0
+    walist: 0
+    addwarp: 3
+    delwarp: 3
+
+  # 無効にするデフォルトコマンド
   Disable: |
     status
+
 WarpList:
   test:
     x: 20
     y: 20
     z: 20
     level: "world"
+
