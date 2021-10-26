@@ -21,11 +21,5 @@ class CommandManager {
             map.register("status", StatusCommand())
             // map.register("warp", WarpCommand(plugin))
         }
-
-        fun hasPermission(command: String, rankId: Int): Boolean {
-            val config = Main().config
-            val permission = config.get("Command.Alias.$command").toString().toInt()
-            return rankId >= permission
-        }
     }
 }
