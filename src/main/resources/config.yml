@@ -17,6 +17,12 @@ Command:
   Disable: |
     status
 
+Jail:
+  x: 0
+  y: 100
+  z: 0
+  level: "lobby"
+
 WarpList:
   test:
     x: 20
