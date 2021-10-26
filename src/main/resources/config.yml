@@ -11,6 +11,7 @@ Command:
     kick: 2
     ban: 2
     black: 3
+    rank: 3
 
   # 無効にするデフォルトコマンド
   Disable: |
