@@ -26,6 +26,7 @@ class PermissionRepository {
                 it[name] = permission.name.text
                 it[enabledCommand] = permission.enabledCommand.joinToString(",")
                 it[disabledCommand] = permission.disabledCommand.joinToString(",")
+                it[canEditLevel] = permission.disabledCommand.joinToString(",")
             }
         }
     }

@@ -3,6 +3,7 @@ package site.saba123
 import cn.nukkit.event.EventHandler
 import cn.nukkit.event.Listener
 import cn.nukkit.event.block.BlockBreakEvent
+import cn.nukkit.event.block.BlockPlaceEvent
 import cn.nukkit.event.player.PlayerCommandPreprocessEvent
 import cn.nukkit.event.player.PlayerJoinEvent
 import cn.nukkit.event.player.PlayerQuitEvent
@@ -17,37 +18,40 @@ import site.saba123.store.PermissionStore
 import site.saba123.store.StatusStore
 
 class EventListener: Listener {
+    companion object {
+        val config = Main().config
+    }
+
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
         val player = event.player
         val name = player.name
         val xuid = player.loginChainData.xuid
 
-        // 既参加
-        if (player.hasPlayedBefore()) {
-            val status: Status = StatusRepository.find(name)!!
-            val job: Job = JobRepository.find(name)!!
-            val permission: Permission = PermissionRepository.find(name)!!
-
-            // storeに登録
-            StatusStore.add(name, status)
-            JobStore.add(name, job)
-            PermissionStore.add(name, permission)
-
-            // mcid変更時：store内のnameを更新
-            if (name != status.name.text) {
-                // storeのnameを更新
-                status.name.shiftName(name)
-                job.name.shiftName(name)
-                permission.name.shiftName(name)
-            }
-        }
-
         // 初参加
-        // DBにプレイヤーデータを登録
-        StatusRepository.add(xuid, name)
-        JobRepository.add(xuid, name)
-        PermissionRepository.add(xuid, name)
+        if (!player.hasPlayedBefore()) {
+            // DBにプレイヤーデータを登録
+            StatusRepository.add(xuid, name)
+            JobRepository.add(xuid, name)
+            PermissionRepository.add(xuid, name)
+            player.sendMessage("[INFO] プレイヤーデータを新規作成しました")
+        }
+        val status: Status = StatusRepository.find(name)!!
+        val job: Job = JobRepository.find(name)!!
+        val permission: Permission = PermissionRepository.find(name)!!
+
+        // storeに登録
+        StatusStore.add(name, status)
+        JobStore.add(name, job)
+        PermissionStore.add(name, permission)
+
+        // mcid変更時：store内のnameを更新
+        if (name != status.name.text) {
+            // storeのnameを更新
+            status.name.shiftName(name)
+            job.name.shiftName(name)
+            permission.name.shiftName(name)
+        }
     }
 
 
@@ -73,7 +77,13 @@ class EventListener: Listener {
     @EventHandler
     fun onBreak(event: BlockBreakEvent) {
         val player = event.player
+        val level = player.level
         val name = player.name
+
+        // permissionがない場合弾く
+        val permission = PermissionStore.getByName(name)
+        val canEditLevel = permission.canEditLevel
+        if (canEditLevel.contains(level.name)) event.setCancelled()
 
         // storeにmoneyを加算
         val status = StatusStore.getByName(name)
@@ -99,6 +109,18 @@ class EventListener: Listener {
                 job.organizerExp.add(1)
             }
         }
+    }
+
+    @EventHandler
+    fun onPlace(event: BlockPlaceEvent) {
+        val player = event.player
+        val level = player.level
+        val name = player.name
+
+        // permissionがない場合弾く
+        val permission = PermissionStore.getByName(name)
+        val canEditLevel = permission.canEditLevel
+        if (!canEditLevel.contains(level.name)) event.setCancelled()
     }
 
     @EventHandler
