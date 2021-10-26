@@ -10,9 +10,10 @@ import site.saba123.model.Jobs
 
 class JobRepository {
     companion object {
-        fun add(_xuid: String) = transaction {
+        fun add(_xuid: String, _name: String) = transaction {
             Jobs.insert {
                 it[xuid] = _xuid
+                it[name] = _name
             }
         }
 
