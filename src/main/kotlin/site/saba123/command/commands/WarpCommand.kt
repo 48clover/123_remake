@@ -33,7 +33,7 @@ class WarpCommand(val config: Config): Command("warp") {
             sender.yaw,
             sender.pitch,
             Server.getInstance().getLevelByName(
-                config.get("level").toString()
+                config.get(path + "level").toString()
             )
         )
         sender.teleport(position)
