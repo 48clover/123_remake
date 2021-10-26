@@ -13,7 +13,7 @@ class RankCommand : Command("rank") {
     }
 
     override fun execute(sender: CommandSender, commandLabel: String, args: Array<out String>): Boolean {
-        if (args.size != 2 || sender !is Player) return false
+        if (args.size < 2 || sender !is Player) return false
         val senderName = sender.name
         val targetName = args[0]
         val status = StatusStore.getByName(targetName)
