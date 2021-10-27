@@ -5,6 +5,7 @@ import cn.nukkit.command.Command
 import cn.nukkit.command.CommandSender
 import cn.nukkit.level.Location
 import site.saba123.store.PermissionStore
+import site.saba123.util.ConfigPool
 
 class OtuCommand : Command("otu") {
     override fun execute(sender: CommandSender, commandLabel: String, args: Array<out String>): Boolean {
@@ -12,7 +13,7 @@ class OtuCommand : Command("otu") {
         val name = args[0]
         val target = sender.server.getPlayer(name)
         val disabledCommandList = PermissionStore.getByName(name).disabledCommand
-        val config = sender.server.config
+        val config = ConfigPool.getByName("config")
         val jailLocation = Location(
             config.getDouble("Jail.x"),
             config.getDouble("Jail.y"),

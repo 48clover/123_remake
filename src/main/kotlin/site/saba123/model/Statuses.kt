@@ -2,7 +2,7 @@ package site.saba123.model
 
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.Table
-import site.saba123.Main
+import site.saba123.util.ConfigPool
 
 object Statuses: Table() {
     val xuid = varchar("xuid", 20)
@@ -60,7 +60,7 @@ class Rank(var rankId: Int) {
     }
 
     fun hasPermission(command: String): Boolean {
-        val config = Main().config
+        val config = ConfigPool.getByName("config")
         val permission = config.get("Command.Alias.$command").toString().toInt()
         return rankId >= permission
     }
