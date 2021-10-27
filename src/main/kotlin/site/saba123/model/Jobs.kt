@@ -49,11 +49,11 @@ class CurrentJob(var jobId: Int) {
 
     companion object {
         val textArray = arrayOf(
-            "初心者",
-            "闘技士",
-            "癒し",
-            "建築士",
-            "開催者"
+            "§f初心者",
+            "§c闘技士",
+            "§b癒し",
+            "§a建築士",
+            "§d開催者"
         )
     }
 
