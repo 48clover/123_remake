@@ -7,11 +7,11 @@ object Jobs: Table("jobs") {
     val xuid = varchar("xuid", 20)
     val name = varchar("name", 20)
     val currentJob = integer("current_job").default(0)
-    val beginnerExp = long("beginner_exp").default(0)
-    val fighterExp = long("fighter_exp").default(0)
-    val therapistExp = long("therapist_exp").default(0)
-    val builderExp = long("builder_exp").default(0)
-    val organizerExp = long("organizer_exp").default(0)
+    val beginnerExp = long("beginner_exp").default(0L)
+    val fighterExp = long("fighter_exp").default(0L)
+    val therapistExp = long("therapist_exp").default(0L)
+    val builderExp = long("builder_exp").default(0L)
+    val organizerExp = long("organizer_exp").default(0L)
 
     override val primaryKey = PrimaryKey(xuid)
 }
