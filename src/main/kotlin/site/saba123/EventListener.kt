@@ -18,10 +18,6 @@ import site.saba123.store.PermissionStore
 import site.saba123.store.StatusStore
 
 class EventListener: Listener {
-    companion object {
-        val config = Main().config
-    }
-
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
         val player = event.player
@@ -29,7 +25,7 @@ class EventListener: Listener {
         val xuid = player.loginChainData.xuid
 
         // 初参加
-        if (!player.hasPlayedBefore()) {
+        if (StatusRepository.find(xuid) == null) {
             // DBにプレイヤーデータを登録
             StatusRepository.add(xuid, name)
             JobRepository.add(xuid, name)
