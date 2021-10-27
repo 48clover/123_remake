@@ -4,6 +4,8 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils.create
 import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
+import site.saba123.model.Jobs
+import site.saba123.model.Permissions
 import site.saba123.model.Statuses
 import java.sql.Connection
 
@@ -15,6 +17,8 @@ class DataBaseUseCase {
 
             transaction {
                 create(Statuses)
+                create(Jobs)
+                create(Permissions)
             }
         }
     }
