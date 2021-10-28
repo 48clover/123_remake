@@ -5,10 +5,10 @@ import org.jetbrains.exposed.sql.Table
 
 object Permissions : Table() {
     val xuid = varchar("xuid", 20)
-    val name = varchar("xuid", 20)
+    val name = varchar("name", 20)
     val enabledCommand = varchar("enabled_command", 255).default("")
     val disabledCommand = varchar("disabled_command", 255).default("")
-    val canEditLevel = varchar("disabled_command", 255).default("")
+    val canEditLevel = varchar("can_edit_level", 255).default("")
 
     override val primaryKey = PrimaryKey(xuid)
 }
