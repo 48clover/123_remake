@@ -17,8 +17,10 @@ class JobRepository {
             }
         }
 
-        fun find(_xuid: String): Job? = Jobs.select { Jobs.xuid eq _xuid }.firstOrNull()?.let {
-            JobDTO.decode(it)
+        fun find(_xuid: String): Job? = transaction {
+            Jobs.select { Jobs.xuid eq _xuid }.firstOrNull()?.let {
+                JobDTO.decode(it)
+            }
         }
 
         fun update(job: Job) = transaction {

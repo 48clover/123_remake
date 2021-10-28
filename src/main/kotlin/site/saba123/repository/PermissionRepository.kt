@@ -17,8 +17,10 @@ class PermissionRepository {
             }
         }
 
-        fun find(_xuid: String): Permission? = Permissions.select { Permissions.xuid eq _xuid }.firstOrNull()?.let {
-            PermissionDTO.decode(it)
+        fun find(_xuid: String): Permission? = transaction {
+            Permissions.select { Permissions.xuid eq _xuid }.firstOrNull()?.let {
+                PermissionDTO.decode(it)
+            }
         }
 
         fun update(permission: Permission) = transaction {
