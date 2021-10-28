@@ -1,6 +1,7 @@
 package site.saba123
 
 import cn.nukkit.plugin.PluginBase
+import site.saba123.command.CommandManager
 import site.saba123.usecase.DataBaseUseCase
 import site.saba123.util.ConfigPool
 
@@ -15,5 +16,8 @@ class Main: PluginBase() {
 
         // EventListener
         this.server.pluginManager.registerEvents(EventListener(), this)
+
+        // commands
+        CommandManager.registerAll(this)
     }
 }
